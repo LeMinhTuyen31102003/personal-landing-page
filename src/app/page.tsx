@@ -5,8 +5,13 @@ import {
   faGithub,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { faHeart, faMessage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart,
+  faMessage,
+  faGamepad,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -22,7 +27,7 @@ const socialLinks = [
     name: "Zalo",
     handle: "0928755446",
     href: "https://zalo.me/0928755446",
-    icon: faMessage,
+    icon: "logos:zalo",
     copyText: "https://zalo.me/0928755446",
   },
   {
@@ -56,6 +61,10 @@ const aatroxImageUrl =
 export default function Home() {
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+
+  const shortBio =
+    "Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá và luôn sẵn sàng học hỏi.";
 
   const handleCopy = async (text: string, label: string) => {
     try {
@@ -77,14 +86,14 @@ export default function Home() {
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-5xl items-center justify-center px-5 py-10 sm:px-8">
-        <section className="w-full max-w-2xl rounded-[2rem] border border-white/70 bg-white/75 p-5 shadow-[0_24px_90px_rgba(107,64,27,0.18)] backdrop-blur-xl sm:p-7">
-          <div className="rounded-[1.75rem] border border-stone-200/70 bg-gradient-to-br from-white via-[#fffaf4] to-[#fef2e2] p-5 sm:p-7">
+        <section className="w-full max-w-[420px] sm:max-w-2xl rounded-[2rem] border border-white/70 bg-white/75 p-4 sm:p-7 shadow-[0_24px_90px_rgba(107,64,27,0.18)] backdrop-blur-xl">
+          <div className="rounded-[1.75rem] border border-stone-200/70 bg-gradient-to-br from-white via-[#fffaf4] to-[#fef2e2] p-5 sm:p-7 overflow-hidden">
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-6">
                 <button
                   type="button"
                   onClick={() => setIsAvatarOpen(true)}
-                  className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-[0_20px_50px_rgba(70,42,16,0.18)] transition hover:scale-[1.02] hover:shadow-[0_24px_60px_rgba(70,42,16,0.24)] cursor-pointer"
+                  className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-[0_20px_50px_rgba(70,42,16,0.18)] transition hover:scale-[1.02] hover:shadow-[0_24px_60px_rgba(70,42,16,0.24)] cursor-pointer sm:h-28 sm:w-28"
                   aria-label="Open Aatrox image"
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-200 via-rose-100 to-sky-100 blur-2xl opacity-70" />
@@ -92,24 +101,25 @@ export default function Home() {
                     src={aatroxImageUrl}
                     alt="Aatrox from League of Legends"
                     fill
-                    sizes="160px"
+                    sizes="(max-width: 640px) 80px, (max-width: 1024px) 140px, 160px"
                     className="relative object-cover object-center"
                   />
                 </button>
 
                 <div className="flex flex-col">
                   <div className="flex items-center gap-3">
-                    <h1 className="text-3xl font-semibold tracking-tight text-stone-950">
+                    <h1 className="text-2xl font-semibold leading-tight tracking-tight text-stone-950 sm:text-3xl">
                       Lê Minh Tuyên
                     </h1>
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-stone-500 mt-1">
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.28em] text-stone-500">
                     Personal profile
                   </p>
                 </div>
               </div>
 
-              <p className="mt-3 max-w-xl text-base leading-7 text-stone-700 sm:text-lg">
+              {/* Desktop / tablet: show full bio */}
+              <p className="hidden mt-3 max-w-xl text-sm leading-6 text-stone-700 sm:block md:text-lg">
                 Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá
                 những điều mới mẻ và luôn sẵn sàng học hỏi để phát triển bản
                 thân. Tôi cũng rất yêu thích game, thể thao và du lịch, đặc biệt
@@ -120,16 +130,36 @@ export default function Home() {
                 ngần ngại liên hệ với tôi qua các mạng xã hội bên dưới!
               </p>
 
+              {/* Mobile: short bio with toggle */}
+              <div className="mt-3 block sm:hidden">
+                <p className="max-w-xl text-sm leading-6 text-stone-700">
+                  {showMore
+                    ? "Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá những điều mới mẻ và luôn sẵn sàng học hỏi để phát triển bản thân. Tôi cũng rất yêu thích game, thể thao và du lịch, đặc biệt là những chuyến đi đến những nơi có cảnh đẹp và văn hóa độc đáo. Tôi tin rằng cuộc sống là một hành trình đầy màu sắc và tôi luôn cố gắng tận hưởng từng khoảnh khắc của nó. Nếu bạn muốn kết nối hoặc trò chuyện về công nghệ, game, thể thao hoặc du lịch, đừng ngần ngại liên hệ với tôi qua các mạng xã hội bên dưới!"
+                    : shortBio}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowMore((s) => !s)}
+                  className="mt-2 text-sm font-semibold text-amber-600"
+                >
+                  {showMore ? "Rút gọn" : "Xem thêm"}
+                </button>
+              </div>
+
               <div className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
                 <span className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-sm font-medium text-pink-700">
                   <FontAwesomeIcon
                     icon={faHeart}
                     className="h-3.5 w-3.5 text-pink-500"
                   />
-                  Love: Đặng Bích Phượng
+                  Lover: Đặng Bích Phượng
                 </span>
-                <span className="rounded-full border border-stone-200 bg-white px-3 py-1 text-sm font-medium text-stone-700">
-                  Chơi Game, Thể Thao, Du Lịch
+                <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-700">
+                  <FontAwesomeIcon
+                    icon={faGamepad}
+                    className="h-3.5 w-3.5 text-amber-600"
+                  />
+                  Hobby: Chơi Game, Thể Thao, Du Lịch
                 </span>
               </div>
             </div>
@@ -157,10 +187,34 @@ export default function Home() {
                           handleCopy(link.copyText, link.name);
                         }
                       }}
-                      className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 transition hover:-translate-y-0.5 hover:border-amber-200 hover:bg-white"
+                      className="group w-full flex cursor-pointer items-center gap-4 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:-translate-y-0.5 hover:border-amber-200 hover:bg-white sm:px-4 sm:py-4 fancy-border"
                     >
-                      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-stone-950 text-white shadow-[0_12px_24px_rgba(0,0,0,0.14)] transition group-hover:bg-amber-500 group-hover:text-stone-950">
-                        <FontAwesomeIcon icon={link.icon} className="h-5 w-5" />
+                      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-stone-950 text-white shadow-[0_12px_24px_rgba(0,0,0,0.14)] transition group-hover:bg-amber-500 group-hover:text-stone-950 fancy-inner">
+                        {link.name === "Zalo" ? (
+                          <svg
+                            className="h-5 w-5 text-white"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Zalo"
+                          >
+                            <polyline
+                              points="6 6 18 6 6 18 18 18"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </svg>
+                        ) : typeof link.icon === "string" ? (
+                          <Icon icon={link.icon} className="h-5 w-5" />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={link.icon}
+                            className="h-5 w-5"
+                          />
+                        )}
                       </span>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-semibold text-stone-900">
@@ -176,7 +230,7 @@ export default function Home() {
                           event.stopPropagation();
                           handleCopy(link.copyText, link.name);
                         }}
-                        className="cursor-pointer rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
+                        className="cursor-pointer rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
                         aria-label={`Copy ${link.name}`}
                       >
                         {copiedLabel === link.name ? "Copied" : "Copy"}
@@ -208,7 +262,7 @@ export default function Home() {
                           handleCopy(game.copyText, game.name);
                         }
                       }}
-                      className="group rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white cursor-pointer"
+                      className="group w-full rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white cursor-pointer sm:px-4 sm:py-4 fancy-border"
                     >
                       <div className="flex items-start gap-3">
                         <div className="min-w-0 flex-1">
@@ -225,7 +279,7 @@ export default function Home() {
                             event.stopPropagation();
                             handleCopy(game.copyText, game.name);
                           }}
-                          className="cursor-pointer rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
+                          className="cursor-pointer rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
                           aria-label={`Copy ${game.name}`}
                         >
                           {copiedLabel === game.name ? "Copied" : "Copy"}

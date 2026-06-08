@@ -79,17 +79,17 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-dvh overflow-x-hidden bg-[#f8f1eb] text-stone-900">
+    <main className="relative isolate min-h-dvh overflow-hidden bg-[#f8f1eb] text-stone-900">
       <Toaster closeButton position="top-right" richColors />
-      <div className="animated-bg pointer-events-none fixed inset-0 overflow-hidden">
+      <div className="animated-bg pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <span className="bg-orb bg-orb-1" />
         <span className="bg-orb bg-orb-2" />
         <span className="bg-orb bg-orb-3" />
         <span className="bg-grid" />
       </div>
 
-      <div className="relative mx-auto flex min-h-dvh w-full max-w-5xl items-start justify-center px-3 py-4 sm:px-6 sm:py-8 md:items-center lg:px-8 lg:py-10">
-        <section className="w-full max-w-[420px] rounded-[1.5rem] border border-white/70 bg-white/75 p-3 shadow-[0_24px_90px_rgba(107,64,27,0.18)] backdrop-blur-xl sm:max-w-2xl sm:rounded-[2rem] sm:p-5 md:p-7">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-5xl items-start justify-center px-3 py-4 sm:px-6 sm:py-8 md:items-center lg:px-8 lg:py-10">
+        <section className="w-full max-w-[420px] rounded-[1.5rem] border border-white/70 bg-white/85 p-3 shadow-[0_24px_90px_rgba(107,64,27,0.18)] sm:max-w-2xl sm:rounded-[2rem] sm:p-5 md:p-7">
           <div className="rounded-[1.25rem] border border-stone-200/70 bg-gradient-to-br from-white via-[#fffaf4] to-[#fef2e2] p-4 sm:rounded-[1.75rem] sm:p-5 md:p-7">
             <div className="flex flex-col gap-4">
               <div className="flex min-w-0 items-center gap-4 sm:gap-6">

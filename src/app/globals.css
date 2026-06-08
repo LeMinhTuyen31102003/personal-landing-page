@@ -311,6 +311,17 @@ body {
   animation: gradientShift 1.6s linear infinite;
 }
 
+/* Make top-right Sonner toasts slide in horizontally from the right. */
+[data-sonner-toaster][data-x-position="right"]
+  [data-sonner-toast][data-x-position="right"][data-y-position="top"]:not([data-mounted="true"]) {
+  --y: translateX(calc(100% + 24px)) !important;
+}
+
+[data-sonner-toaster][data-x-position="right"]
+  [data-sonner-toast][data-x-position="right"][data-y-position="top"][data-mounted="true"][data-front="true"]:not([data-removed="true"]) {
+  --y: translateX(0) !important;
+}
+
 /* Responsive adjustments for animated background on smaller screens */
 @media (max-width: 1024px) {
   .bg-orb-1 {

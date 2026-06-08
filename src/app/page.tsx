@@ -1,46 +1,45 @@
 "use client";
 
 import {
-  faFacebook,
-  faGithub,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import {
   faHeart,
   faGamepad,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useState } from "react";
+import { Toaster, toast } from "sonner";
 
 const socialLinks = [
   {
     name: "Facebook",
     handle: "facebook.com/lmtuyen.dz",
     href: "https://www.facebook.com/lmtuyen.dz",
-    icon: faFacebook,
+    iconSrc:
+      "https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo%3Dw240-h480",
     copyText: "https://www.facebook.com/lmtuyen.dz",
   },
   {
     name: "Zalo",
     handle: "0928755446",
     href: "https://zalo.me/0928755446",
-    icon: "logos:zalo",
+    iconSrc:
+      "https://play-lh.googleusercontent.com/Zs0-SVFd7FHABCT6buDhAVmOZHlIJS8Z37LMmWghcJV9N4ryZfpI0dZa0jzejcJ3cQ%3Dw240-h480",
     copyText: "https://zalo.me/0928755446",
   },
   {
     name: "Instagram",
     handle: "_nyut.31th10",
     href: "https://www.instagram.com/_nyut.31th10/",
-    icon: faInstagram,
+    iconSrc:
+      "https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM%3Dw240-h480",
     copyText: "https://www.instagram.com/_nyut.31th10/",
   },
   {
     name: "GitHub",
     handle: "LeMinhTuyen31102003",
     href: "https://github.com/LeMinhTuyen31102003",
-    icon: faGithub,
+    iconSrc:
+      "https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU%3Dw240-h480",
     copyText: "https://github.com/LeMinhTuyen31102003",
   },
 ];
@@ -50,6 +49,8 @@ const gameLinks = [
     name: "Liên Minh: Tốc Chiến",
     handle: "Ingame / ID: 여기 뚜엔#3110",
     href: "https://wildrift.leagueoflegends.com/",
+    iconSrc:
+      "https://play-lh.googleusercontent.com/7-kbcpgrCOE1mleJ9g0d61sJeoqKcQRIj4iFvJ8DjPlRIfocOWfOQsXzKWw2I5oHySVdbjR2fvzfCCz1FYQ-RQ%3Dw240-h480",
     copyText: "여기 뚜엔#3110",
   },
 ];
@@ -58,7 +59,6 @@ const aatroxImageUrl =
   "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg";
 
 export default function Home() {
-  const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
@@ -68,16 +68,20 @@ export default function Home() {
   const handleCopy = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopiedLabel(label);
-      window.setTimeout(() => setCopiedLabel(null), 1500);
+      toast.success(`Đã copy ${label}`, {
+        description: text,
+      });
     } catch {
-      setCopiedLabel(null);
+      toast.error("Không thể copy", {
+        description: "Vui lòng thử lại.",
+      });
     }
   };
 
   return (
     <main className="relative min-h-dvh overflow-x-hidden bg-[#f8f1eb] text-stone-900">
-      <div className="animated-bg absolute inset-0">
+      <Toaster closeButton position="top-right" richColors />
+      <div className="animated-bg pointer-events-none fixed inset-0 overflow-hidden">
         <span className="bg-orb bg-orb-1" />
         <span className="bg-orb bg-orb-2" />
         <span className="bg-orb bg-orb-3" />
@@ -186,34 +190,16 @@ export default function Home() {
                           handleCopy(link.copyText, link.name);
                         }
                       }}
-                      className="group flex min-w-0 w-full cursor-pointer items-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:-translate-y-0.5 hover:border-amber-200 hover:bg-white sm:gap-3 sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
+                      className="group flex min-w-0 w-full cursor-pointer items-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:border-amber-200 hover:bg-white sm:gap-3 sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
                     >
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-stone-950 text-white shadow-[0_12px_24px_rgba(0,0,0,0.14)] transition group-hover:bg-amber-500 group-hover:text-stone-950 sm:h-11 sm:w-11 sm:rounded-2xl fancy-inner">
-                        {link.name === "Zalo" ? (
-                          <svg
-                            className="h-5 w-5 text-white"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            role="img"
-                            aria-label="Zalo"
-                          >
-                            <polyline
-                              points="6 6 18 6 6 18 18 18"
-                              stroke="currentColor"
-                              strokeWidth="1.8"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              fill="none"
-                            />
-                          </svg>
-                        ) : typeof link.icon === "string" ? (
-                          <Icon icon={link.icon} className="h-5 w-5" />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={link.icon}
-                            className="h-5 w-5"
-                          />
-                        )}
+                      <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_12px_24px_rgba(0,0,0,0.14)] transition group-hover:shadow-[0_14px_28px_rgba(245,158,11,0.24)] sm:h-11 sm:w-11 sm:rounded-2xl">
+                        <Image
+                          src={link.iconSrc}
+                          alt={`${link.name} app logo`}
+                          fill
+                          sizes="44px"
+                          className="object-cover"
+                        />
                       </span>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-semibold text-stone-900">
@@ -232,7 +218,7 @@ export default function Home() {
                         className="min-w-[3.25rem] shrink-0 cursor-pointer rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
                         aria-label={`Copy ${link.name}`}
                       >
-                        {copiedLabel === link.name ? "Copied" : "Copy"}
+                        Copy
                       </button>
                     </div>
                   ))}
@@ -261,28 +247,40 @@ export default function Home() {
                           handleCopy(game.copyText, game.name);
                         }
                       }}
-                      className="group min-w-0 w-full cursor-pointer rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
+                      className="group min-w-0 w-full cursor-pointer rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:border-sky-200 hover:bg-white sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
                     >
-                      <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start">
-                        <div className="min-w-0 flex-1">
-                          <p className="break-words text-sm font-semibold text-stone-900">
-                            {game.name}
-                          </p>
-                          <p className="mt-1 break-words text-sm text-stone-600 group-hover:text-stone-800">
-                            {game.handle}
-                          </p>
+                      <div className="flex min-w-0 items-start gap-3">
+                        <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-sky-200 bg-sky-950 shadow-[0_12px_24px_rgba(2,132,199,0.18)]">
+                          <Image
+                            src={game.iconSrc}
+                            alt={`${game.name} logo`}
+                            fill
+                            sizes="48px"
+                            className="object-cover"
+                          />
+                        </span>
+
+                        <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start">
+                          <div className="min-w-0 flex-1">
+                            <p className="break-words text-sm font-semibold text-stone-900">
+                              {game.name}
+                            </p>
+                            <p className="mt-1 break-words text-sm text-stone-600 group-hover:text-stone-800">
+                              {game.handle}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleCopy(game.copyText, game.name);
+                            }}
+                            className="min-w-[3.25rem] shrink-0 cursor-pointer self-start rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
+                            aria-label={`Copy ${game.name}`}
+                          >
+                            Copy
+                          </button>
                         </div>
-                        <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            handleCopy(game.copyText, game.name);
-                          }}
-                          className="min-w-[3.25rem] shrink-0 cursor-pointer self-start rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
-                          aria-label={`Copy ${game.name}`}
-                        >
-                          {copiedLabel === game.name ? "Copied" : "Copy"}
-                        </button>
                       </div>
                     </div>
                   ))}
@@ -290,11 +288,6 @@ export default function Home() {
               </div>
             </div>
 
-            {copiedLabel ? (
-              <p className="mt-4 text-center text-sm font-medium text-emerald-700 sm:text-left">
-                Đã copy {copiedLabel}
-              </p>
-            ) : null}
           </div>
         </section>
       </div>

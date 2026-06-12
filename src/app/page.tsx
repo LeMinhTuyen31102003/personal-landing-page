@@ -1,13 +1,10 @@
 "use client";
 
-import {
-  faHeart,
-  faGamepad,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { Toaster, toast } from "sonner";
+import ChibiDeveloperAvatar from "./ChibiDeveloperAvatar";
+import SoftWebScene from "./SoftWebScene";
 
 const socialLinks = [
   {
@@ -55,15 +52,130 @@ const gameLinks = [
   },
 ];
 
-const aatroxImageUrl =
-  "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg";
+const skillTags = [
+  "Java",
+  "Next.js",
+  "React",
+  "Tailwind CSS",
+  "REST API",
+  "Database",
+  "Git",
+  "Responsive UI",
+];
+
+const profileStats = [
+  { label: "Vai trò", value: "Web Developer" },
+  { label: "Stack", value: "Java + Next.js" },
+  { label: "Gu làm việc", value: "Gọn, rõ, dễ dùng" },
+];
+
+const sakuraPetals = [
+  {
+    left: "6%",
+    delay: "-2s",
+    duration: "19s",
+    drift: "8rem",
+    size: "0.7rem",
+    rotate: "280deg",
+  },
+  {
+    left: "13%",
+    delay: "-10s",
+    duration: "24s",
+    drift: "-5rem",
+    size: "0.56rem",
+    rotate: "-240deg",
+  },
+  {
+    left: "21%",
+    delay: "-5s",
+    duration: "21s",
+    drift: "6rem",
+    size: "0.64rem",
+    rotate: "310deg",
+  },
+  {
+    left: "29%",
+    delay: "-14s",
+    duration: "27s",
+    drift: "-8rem",
+    size: "0.52rem",
+    rotate: "-300deg",
+  },
+  {
+    left: "37%",
+    delay: "-7s",
+    duration: "20s",
+    drift: "7rem",
+    size: "0.74rem",
+    rotate: "260deg",
+  },
+  {
+    left: "46%",
+    delay: "-18s",
+    duration: "29s",
+    drift: "-6rem",
+    size: "0.58rem",
+    rotate: "-280deg",
+  },
+  {
+    left: "54%",
+    delay: "-3s",
+    duration: "22s",
+    drift: "5rem",
+    size: "0.62rem",
+    rotate: "330deg",
+  },
+  {
+    left: "62%",
+    delay: "-12s",
+    duration: "25s",
+    drift: "-7rem",
+    size: "0.68rem",
+    rotate: "-260deg",
+  },
+  {
+    left: "70%",
+    delay: "-6s",
+    duration: "23s",
+    drift: "8rem",
+    size: "0.5rem",
+    rotate: "290deg",
+  },
+  {
+    left: "78%",
+    delay: "-16s",
+    duration: "28s",
+    drift: "-5rem",
+    size: "0.72rem",
+    rotate: "-320deg",
+  },
+  {
+    left: "86%",
+    delay: "-4s",
+    duration: "21s",
+    drift: "6rem",
+    size: "0.57rem",
+    rotate: "240deg",
+  },
+  {
+    left: "94%",
+    delay: "-13s",
+    duration: "26s",
+    drift: "-9rem",
+    size: "0.66rem",
+    rotate: "-300deg",
+  },
+];
 
 export default function Home() {
-  const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
   const shortBio =
-    "Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá và luôn sẵn sàng học hỏi.";
+    "Tôi là Web Developer, tập trung vào giao diện responsive, backend rõ ràng và trải nghiệm sử dụng mượt trên mọi thiết bị.";
+
+  const fullBio =
+    "Tôi là Web Developer với nền tảng Java, thích xây dựng sản phẩm gọn, dễ dùng và có cấu trúc rõ ràng. Tôi quan tâm đến cả phần giao diện lẫn backend, luôn học thêm công nghệ mới để cải thiện chất lượng sản phẩm. Ngoài code, tôi thích game, thể thao và du lịch. Nếu bạn muốn kết nối hoặc trao đổi về công nghệ, hãy liên hệ qua các kênh bên dưới.";
 
   const handleCopy = async (text: string, label: string) => {
     try {
@@ -79,249 +191,257 @@ export default function Home() {
   };
 
   return (
-    <main className="relative isolate min-h-dvh overflow-hidden bg-[#f8f1eb] text-stone-900">
+    <main className="portfolio-page relative isolate min-h-dvh overflow-hidden bg-[#f4fbff] text-slate-950">
       <Toaster closeButton position="top-right" richColors />
-      <div className="animated-bg pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <span className="bg-orb bg-orb-1" />
-        <span className="bg-orb bg-orb-2" />
-        <span className="bg-orb bg-orb-3" />
-        <span className="bg-grid" />
+      <SoftWebScene />
+      <div className="sakura-layer" aria-hidden="true">
+        {sakuraPetals.map((petal, index) => (
+          <span
+            key={`${petal.left}-${index}`}
+            className="sakura-petal"
+            style={
+              {
+                "--petal-delay": petal.delay,
+                "--petal-drift": petal.drift,
+                "--petal-duration": petal.duration,
+                "--petal-left": petal.left,
+                "--petal-rotate": petal.rotate,
+                "--petal-size": petal.size,
+              } as CSSProperties
+            }
+          />
+        ))}
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-5xl items-start justify-center px-3 py-4 sm:px-6 sm:py-8 md:items-center lg:px-8 lg:py-10">
-        <section className="w-full max-w-[420px] rounded-[1.5rem] border border-white/70 bg-white/85 p-3 shadow-[0_24px_90px_rgba(107,64,27,0.18)] sm:max-w-2xl sm:rounded-[2rem] sm:p-5 md:p-7">
-          <div className="rounded-[1.25rem] border border-stone-200/70 bg-gradient-to-br from-white via-[#fffaf4] to-[#fef2e2] p-4 sm:rounded-[1.75rem] sm:p-5 md:p-7">
-            <div className="flex flex-col gap-4">
-              <div className="flex min-w-0 items-center gap-4 sm:gap-6">
-                <button
-                  type="button"
-                  onClick={() => setIsAvatarOpen(true)}
-                  className="relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden rounded-full border-4 border-white shadow-[0_20px_50px_rgba(70,42,16,0.18)] transition hover:scale-[1.02] hover:shadow-[0_24px_60px_rgba(70,42,16,0.24)] sm:h-24 sm:w-24 md:h-28 md:w-28"
-                  aria-label="Open Aatrox image"
-                >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-200 via-rose-100 to-sky-100 blur-2xl opacity-70" />
-                  <Image
-                    src={aatroxImageUrl}
-                    alt="Aatrox from League of Legends"
-                    fill
-                    sizes="(max-width: 640px) 64px, (max-width: 768px) 96px, 112px"
-                    className="relative object-cover object-center"
-                  />
-                </button>
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+        <header className="site-nav reveal-up">
+          <a className="site-brand" href="#top" aria-label="Lê Minh Tuyên">
+            <span className="brand-mark" aria-hidden="true">
+              <Image
+                src="/assets/wanko-header-avatar.png"
+                alt=""
+                fill
+                sizes="40px"
+                className="brand-mark-image"
+              />
+            </span>
+            <span>Lê Minh Tuyên</span>
+          </a>
+          <nav className="site-links" aria-label="Liên kết nhanh">
+            <a href="#connect">Kết nối</a>
+            <a
+              href="https://github.com/LeMinhTuyen31102003"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </nav>
+        </header>
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-3">
-                    <h1 className="break-words text-xl font-semibold leading-tight tracking-tight text-stone-950 min-[380px]:text-2xl sm:text-3xl">
-                      Lê Minh Tuyên
-                    </h1>
-                  </div>
-                  <p className="mt-1 break-words text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-stone-500 sm:text-xs sm:tracking-[0.28em]">
-                    Personal profile
-                  </p>
-                </div>
-              </div>
+        <section
+          id="top"
+          className="grid flex-1 items-center gap-7 py-8 md:py-10 lg:grid-cols-[1.08fr_0.92fr] lg:py-12"
+        >
+          <div className="hero-copy reveal-up">
+            <p className="section-kicker">Web developer portfolio</p>
+            <h1 className="mt-4 max-w-3xl text-5xl font-semibold leading-none text-slate-950 sm:text-6xl lg:text-7xl">
+              Lê Minh Tuyên
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              {showMore ? fullBio : shortBio}
+            </p>
 
-              {/* Desktop / tablet: show full bio */}
-              <p className="mt-3 hidden max-w-xl break-words text-sm leading-6 text-stone-700 sm:block md:text-lg">
-                Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá
-                những điều mới mẻ và luôn sẵn sàng học hỏi để phát triển bản
-                thân. Tôi cũng rất yêu thích game, thể thao và du lịch, đặc biệt
-                là những chuyến đi đến những nơi có cảnh đẹp và văn hóa độc đáo.
-                Tôi tin rằng cuộc sống là một hành trình đầy màu sắc và tôi luôn
-                cố gắng tận hưởng từng khoảnh khắc của nó. Nếu bạn muốn kết nối
-                hoặc trò chuyện về công nghệ, game, thể thao hoặc du lịch, đừng
-                ngần ngại liên hệ với tôi qua các mạng xã hội bên dưới!
-              </p>
-
-              {/* Mobile: short bio with toggle */}
-              <div className="mt-3 block sm:hidden">
-                <p className="max-w-xl break-words text-sm leading-6 text-stone-700">
-                  {showMore
-                    ? "Tôi là 1 Java Developer. Tôi đam mê công nghệ, thích khám phá những điều mới mẻ và luôn sẵn sàng học hỏi để phát triển bản thân. Tôi cũng rất yêu thích game, thể thao và du lịch, đặc biệt là những chuyến đi đến những nơi có cảnh đẹp và văn hóa độc đáo. Tôi tin rằng cuộc sống là một hành trình đầy màu sắc và tôi luôn cố gắng tận hưởng từng khoảnh khắc của nó. Nếu bạn muốn kết nối hoặc trò chuyện về công nghệ, game, thể thao hoặc du lịch, đừng ngần ngại liên hệ với tôi qua các mạng xã hội bên dưới!"
-                    : shortBio}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setShowMore((s) => !s)}
-                  className="mt-2 text-sm font-semibold text-amber-600"
-                >
-                  {showMore ? "Rút gọn" : "Xem thêm"}
-                </button>
-              </div>
-
-              <div className="mt-3 flex flex-wrap justify-start gap-2">
-                <span className="inline-flex max-w-full flex-wrap items-center gap-2 whitespace-normal break-words rounded-2xl border border-pink-200 bg-pink-50 px-3 py-1.5 text-xs font-medium leading-5 text-pink-700 sm:rounded-full sm:text-sm">
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className="h-3.5 w-3.5 shrink-0 text-pink-500"
-                  />
-                  Lover: Đặng Bích Phượng
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => setShowMore((value) => !value)}
+                className="primary-action group"
+              >
+                <span>{showMore ? "Rút gọn profile" : "Đọc thêm profile"}</span>
+                <span className="action-dot" aria-hidden="true">
+                  {showMore ? "−" : "+"}
                 </span>
-                <span className="inline-flex max-w-full flex-wrap items-center gap-2 whitespace-normal break-words rounded-2xl border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium leading-5 text-amber-700 sm:rounded-full sm:text-sm">
-                  <FontAwesomeIcon
-                    icon={faGamepad}
-                    className="h-3.5 w-3.5 shrink-0 text-amber-600"
-                  />
-                  Hobby: Chơi Game, Thể Thao, Du Lịch
+              </button>
+              <a
+                href="https://github.com/LeMinhTuyen31102003"
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-action group"
+              >
+                <span>Xem GitHub</span>
+                <span className="action-dot" aria-hidden="true">
+                  ↗
                 </span>
-              </div>
+              </a>
             </div>
 
-            <div className="mt-6 grid gap-4">
-              <div className="rounded-2xl border border-stone-200/80 bg-white/90 p-3 sm:rounded-[1.5rem] sm:p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h2 className="min-w-0 break-words text-sm font-semibold uppercase tracking-[0.18em] text-stone-500 sm:tracking-[0.28em]">
-                    Mạng xã hội
-                  </h2>
-                  <span className="shrink-0 text-xs font-medium text-stone-400">
-                    4 links
-                  </span>
+            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+              {profileStats.map((item) => (
+                <div key={item.label} className="profile-stat">
+                  <p className="text-sm font-medium text-slate-500">
+                    {item.label}
+                  </p>
+                  <p className="mt-2 text-base font-semibold text-slate-950">
+                    {item.value}
+                  </p>
                 </div>
-                <div className="mt-4 grid gap-3 md:grid-cols-2">
-                  {socialLinks.map((link) => (
-                    <div
-                      key={link.name}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => handleCopy(link.copyText, link.name)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          handleCopy(link.copyText, link.name);
-                        }
-                      }}
-                      className="group flex min-w-0 w-full cursor-pointer items-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:border-amber-200 hover:bg-white sm:gap-3 sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
+              ))}
+            </div>
+          </div>
+
+          <aside className="profile-visual reveal-up">
+            <div className="avatar-button">
+              <ChibiDeveloperAvatar />
+            </div>
+            <div className="visual-caption">
+              <p className="text-sm font-semibold text-slate-950">
+                Java / Web Developer
+              </p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">
+                Clean UI, responsive flow, practical backend.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section
+          className="grid gap-5 pb-10 lg:grid-cols-[1fr_0.82fr]"
+          id="connect"
+        >
+          <div className="soft-section reveal-up">
+            <div className="section-heading">
+              <div>
+                <p className="section-kicker">Connect</p>
+                <h2 className="mt-2 text-2xl font-semibold text-slate-950 sm:text-3xl">
+                  Mạng xã hội
+                </h2>
+              </div>
+              <span className="soft-count">{socialLinks.length} kênh</span>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {socialLinks.map((link) => (
+                <article key={link.name} className="link-card group">
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(link.copyText, link.name)}
+                    className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                  >
+                    <span className="app-icon relative h-12 w-12 shrink-0 overflow-hidden">
+                      <Image
+                        src={link.iconSrc}
+                        alt={`${link.name} app logo`}
+                        fill
+                        sizes="48px"
+                        loading="eager"
+                        className="object-cover"
+                      />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold text-slate-950">
+                        {link.name}
+                      </span>
+                      <span className="mt-1 block truncate text-sm text-slate-500">
+                        {link.handle}
+                      </span>
+                    </span>
+                  </button>
+
+                  <div className="flex shrink-0 gap-2">
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="micro-button"
                     >
-                      <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_12px_24px_rgba(0,0,0,0.14)] transition group-hover:shadow-[0_14px_28px_rgba(245,158,11,0.24)] sm:h-11 sm:w-11 sm:rounded-2xl">
+                      Open
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(link.copyText, link.name)}
+                      className="micro-button"
+                      aria-label={`Copy ${link.name}`}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-5">
+            <section className="soft-section reveal-up">
+              <div className="section-heading">
+                <div>
+                  <p className="section-kicker">Stack</p>
+                  <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                    Kỹ năng
+                  </h2>
+                </div>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {skillTags.map((skill) => (
+                  <span key={skill} className="skill-chip">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            <section className="soft-section reveal-up">
+              <div className="section-heading">
+                <div>
+                  <p className="section-kicker">Game</p>
+                  <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                    Tốc Chiến
+                  </h2>
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-3">
+                {gameLinks.map((game) => (
+                  <article key={game.name} className="link-card group">
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(game.copyText, game.name)}
+                      className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                    >
+                      <span className="app-icon relative h-14 w-14 shrink-0 overflow-hidden">
                         <Image
-                          src={link.iconSrc}
-                          alt={`${link.name} app logo`}
+                          src={game.iconSrc}
+                          alt={`${game.name} logo`}
                           fill
-                          sizes="44px"
+                          sizes="56px"
+                          loading="eager"
                           className="object-cover"
                         />
                       </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold text-stone-900">
-                          {link.name}
-                        </p>
-                        <p className="mt-1 truncate text-sm text-stone-600 group-hover:text-stone-800">
-                          {link.handle}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleCopy(link.copyText, link.name);
-                        }}
-                        className="min-w-[3.25rem] shrink-0 cursor-pointer rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
-                        aria-label={`Copy ${link.name}`}
-                      >
-                        Copy
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-stone-200/80 bg-white/90 p-3 sm:rounded-[1.5rem] sm:p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h2 className="min-w-0 break-words text-sm font-semibold uppercase tracking-[0.18em] text-stone-500 sm:tracking-[0.28em]">
-                    Game
-                  </h2>
-                  <span className="shrink-0 text-xs font-medium text-stone-400">
-                    1 link
-                  </span>
-                </div>
-                <div className="mt-4 grid gap-3">
-                  {gameLinks.map((game) => (
-                    <div
-                      key={game.name}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => handleCopy(game.copyText, game.name)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          handleCopy(game.copyText, game.name);
-                        }
-                      }}
-                      className="group min-w-0 w-full cursor-pointer rounded-2xl border border-stone-200 bg-stone-50 px-3 py-3 transition hover:border-sky-200 hover:bg-white sm:px-4 sm:py-4 md:px-5 md:py-5 fancy-border"
-                    >
-                      <div className="flex min-w-0 items-start gap-3">
-                        <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-sky-200 bg-sky-950 shadow-[0_12px_24px_rgba(2,132,199,0.18)]">
-                          <Image
-                            src={game.iconSrc}
-                            alt={`${game.name} logo`}
-                            fill
-                            sizes="48px"
-                            className="object-cover"
-                          />
+                      <span className="min-w-0 flex-1">
+                        <span className="block break-words text-sm font-semibold text-slate-950">
+                          {game.name}
                         </span>
-
-                        <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start">
-                          <div className="min-w-0 flex-1">
-                            <p className="break-words text-sm font-semibold text-stone-900">
-                              {game.name}
-                            </p>
-                            <p className="mt-1 break-words text-sm text-stone-600 group-hover:text-stone-800">
-                              {game.handle}
-                            </p>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              handleCopy(game.copyText, game.name);
-                            }}
-                            className="min-w-[3.25rem] shrink-0 cursor-pointer self-start rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-semibold text-stone-700 transition hover:cursor-pointer hover:border-stone-300 hover:bg-stone-100 active:scale-95"
-                            aria-label={`Copy ${game.name}`}
-                          >
-                            Copy
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                        <span className="mt-1 block break-words text-sm leading-6 text-slate-500">
+                          {game.handle}
+                        </span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(game.copyText, game.name)}
+                      className="micro-button shrink-0"
+                      aria-label={`Copy ${game.name}`}
+                    >
+                      Copy
+                    </button>
+                  </article>
+                ))}
               </div>
-            </div>
-
+            </section>
           </div>
         </section>
       </div>
-
-      {isAvatarOpen ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-3 py-4 backdrop-blur-sm sm:px-4 sm:py-6"
-          onClick={() => setIsAvatarOpen(false)}
-          role="presentation"
-        >
-          <div
-            className="relative max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-stone-950 shadow-[0_30px_120px_rgba(0,0,0,0.45)] sm:rounded-[2rem]"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={() => setIsAvatarOpen(false)}
-              className="absolute right-4 top-4 z-10 rounded-full bg-white/90 px-3 py-1.5 text-sm font-semibold text-stone-900 transition hover:bg-white cursor-pointer"
-            >
-              Đóng
-            </button>
-            <div className="relative aspect-[16/10] w-full">
-              <Image
-                src={aatroxImageUrl}
-                alt="Aatrox from League of Legends"
-                fill
-                sizes="(max-width: 768px) 100vw, 768px"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
     </main>
   );
 }
